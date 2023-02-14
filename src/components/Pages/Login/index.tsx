@@ -31,7 +31,7 @@ export default function Login() {
         <Button variant="contained">LOGIN</Button>
       </FormInputs>
       <BottomLogin>
-        <span>Need a account? <a href="/404">Sign up here</a></span>
+        <span>Need a account? <a href="/signup">Sign up here</a></span>
         <a href="/404">Forget your password?</a>
       </BottomLogin>
     </AccountForm>
