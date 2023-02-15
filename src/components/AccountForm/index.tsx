@@ -11,7 +11,7 @@ export default function AccountForm(props: any) {
       <LoginContainer>
         <LoginPainel />
         <LoginForm>
-          {...props.children}
+          {props.children}
         </LoginForm>
       </LoginContainer>
     </Container>
