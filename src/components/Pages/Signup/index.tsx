@@ -36,6 +36,7 @@ export default function Signup() {
       .then(e => {
         if (e.data.ok === false) {
           setError(e.data.response);
+          console.log(e.data.ok);
         }
         else {
           setSuccess(true);
@@ -76,6 +77,7 @@ export default function Signup() {
         >
           Sign Up
         </Button>
+        {error === "" ? null : <Alert severity="error" onClose={() => setError("")}>{error}</Alert>}
       </>
     );
   }
@@ -92,8 +94,8 @@ export default function Signup() {
   }
 
   return (
-  <AccountForm>
-    {success == true ? SuccessMessage() : SignupForm() } 
-  </AccountForm>
+    <AccountForm>
+      {success == true ? SuccessMessage() : SignupForm()}
+    </AccountForm>
   )
 }
