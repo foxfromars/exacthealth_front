@@ -10,7 +10,6 @@ import AccountForm from "../../AccountForm";
 import {
   Text,
 } from "./styles";
-import { LoginForm } from "../../AccountForm/styles";
 
 export default function Signup() {
 
