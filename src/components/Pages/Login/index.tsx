@@ -9,6 +9,7 @@ import {
 } from "./styles";
 import { Button, Checkbox, TextField } from "@mui/material";
 import AccountForm from "../../AccountForm";
+import useAuth from "../../../hooks/UseAuth";
 
 type Values = {
   username?: string;
@@ -19,6 +20,7 @@ export default function Login() {
   const [values, setValues] = useState<Values>({});
   const [error, setError] = useState<string>("");
   const navigate = useNavigate();
+  const {user, setUser} = useAuth();
 
   function handleChange(e: any) {
     const { name, value } = e.target;
@@ -38,9 +40,11 @@ export default function Login() {
     })
       .then(e => {
         localStorage.setItem("token", e.data.response);
-        navigate("/home");
+        setUser(values.username);
+        navigate("/");
       })
       .catch(e => {
+        console.log(e)
         setError(e.message);
         setValues({});
       })
