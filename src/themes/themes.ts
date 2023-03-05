@@ -19,12 +19,26 @@ let theme = createTheme({
     success: {
       main: green[400],
     },
-    surface: grey[50],
+    surface: grey[200],
     bg: grey[100],
-  }
+  },
 })
 
-theme = createTheme(theme, { });
+theme = createTheme(theme, {
+  typography: {
+    sectionTitle: {
+      fontSize: "2.5rem",
+      fontWeight: "500",
+      width: "100%",
+      height: "100px",
+      display: "flex",
+      alignItems: "center",
+      marginLeft: "40px",
+      marginTop: "10px",
+      color: "black",
+    },
+  },
+});
 
 export default theme;
 
