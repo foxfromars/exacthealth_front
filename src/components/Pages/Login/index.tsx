@@ -10,6 +10,7 @@ import {
 import { Button, Checkbox, TextField } from "@mui/material";
 import AccountForm from "../../AccountForm";
 import useAuth from "../../../hooks/UseAuth";
+import UseAlert from "../../../hooks/UseAlert";
 
 type Values = {
   username?: string;
@@ -18,9 +19,9 @@ type Values = {
 
 export default function Login() {
   const [values, setValues] = useState<Values>({});
-  const [error, setError] = useState<string>("");
   const navigate = useNavigate();
-  const {user, setUser} = useAuth();
+  const { user, setUser } = useAuth();
+  const [alert, setAlert] = UseAlert();
 
   function handleChange(e: any) {
     const { name, value } = e.target;
@@ -42,12 +43,19 @@ export default function Login() {
         localStorage.setItem("token", e.data.response);
         setUser(values.username);
         navigate("/");
+        setAlert({
+          isOpen: true,
+          message: "Login realizado com sucesso",
+          type: "success",
+        })
       })
       .catch(e => {
-        console.log(e)
-        setError(e.message);
-        setValues({});
-      })
+        setAlert({
+          isOpen: true,
+          message: e.response.data.response,
+          type: "error",
+        })
+      });
   }
 
   return (

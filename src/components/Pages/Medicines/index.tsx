@@ -11,8 +11,8 @@ import { useTheme } from "@mui/material";
 import MedicinesItem from "../../MedicinesItem";
 
 export default function Medicines() {
-  const [items, setItems] = useState<any>([]);
   const theme = useTheme();
+  const [items, setItems] = useState<Array<any>>([]);
 
 
   useEffect(() => {
