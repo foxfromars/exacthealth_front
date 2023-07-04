@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import axios from "axios";
 import {
   Box,
   List,
@@ -7,30 +6,33 @@ import {
 } from "@mui/material";
 
 import { useTheme } from "@mui/material";
+import useAlert from "../../../hooks/UseAlert";
 
 import MedicinesItem from "../../MedicinesItem";
+import medicineService from "../../../services/medicine.service";
+import CreateMedicineModal from "../../CreateMedicineModal/";
+import FloatAddButton from "../../FloatAddButton/";
 
 export default function Medicines() {
   const theme = useTheme();
+  const [alert, setAlert] = useAlert();
+
   const [items, setItems] = useState<Array<any>>([]);
+  const [createModal, setCreateModal] = useState<boolean>(false);
 
 
   useEffect(() => {
-    const SERVER_URL: string = import.meta.env.VITE_SERVER_URL;
     async function request() {
-      await axios({
-        method: "get",
-        url: `${SERVER_URL}/medicine`,
-      })
-        .then((e) => {
-          setItems(e.data.response);
-        })
-        .catch((e) => {
-          console.log(e);
-        })
+      const token = localStorage.getItem("token");
+      if (token) {
+        const result = await medicineService.getAll(token, setAlert);
+        if (result) {
+          setItems(result);
+        }
+      }
     }
     request();
-  }, [])
+  }, []);
 
   return (
     <Box sx={{
@@ -46,12 +48,21 @@ export default function Medicines() {
         margin: "30px",
         borderRadius: "10px",
       }}>
-      {!items ? null : items.map((e:any) => {
+        {!items ? null : items.map((e: any) => {
           return (
-            <MedicinesItem text={e.name} type={e.type}/>
-              );
-          })}
+            <MedicinesItem text={e.name} type={e.type} />
+          );
+        })}
       </List>
+      <CreateMedicineModal
+        isOpen={createModal}
+        setOpen={setCreateModal}
+      />
+      <FloatAddButton
+        onClick={() => setCreateModal(true)}
+        x={20}
+        y={20}
+      />
     </Box>
   );
 }

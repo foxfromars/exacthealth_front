@@ -1,4 +1,7 @@
 import { Routes, Route, } from "react-router-dom";
+
+import ProtectRoutes from "./protectRoutes";
+
 import Login from "../components/Pages/Login";
 import NotFound from "../components/Pages/404";
 import Signup from "../components/Pages/Signup";
@@ -18,9 +21,11 @@ export default function routes() {
       <Routes>
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
-        <Route element={<ContainerPage />}>
-          <Route path="/" element={<Home />} />
-          <Route path="/medicines" element={<Medicines />} />
+        <Route element={<ProtectRoutes />}>
+          <Route element={<ContainerPage />}>
+            <Route path="/" element={<Home />} />
+            <Route path="/medicines" element={<Medicines />} />
+          </Route>
         </Route>
         <Route path="*" element={<NotFound />} />
       </Routes>
